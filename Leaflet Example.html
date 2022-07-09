@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>Leaf let Example</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script>
+        window.onload = function( ) {
+            var map = L.map("h_map");
+
+            // 国土地理院レイヤー
+            var tileLayer_gsi = L.tileLayer(
+                "http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png",
+                {attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"}
+            );
+            tileLayer_gsi.addTo(map);
+
+            // 表示する地点
+            var points = [
+                [35.754129, 139.743791],
+                [35.753567, 139.744805],
+                [35.753898, 139.745352]
+            ];
+
+            // 　　　　　　　緯度　　　経度　　　　　表示倍率
+            map.setView(points[0], 14);
+
+            // マーカー追加　　　　緯度　　　経度
+            var marker = L.marker(points[0]);
+            marker.bindPopup("公園前");
+            marker.addTo(map);
+            marker = L.marker(points[1]);
+            marker.bindPopup("大通り前");
+            marker.addTo(map);
+            marker = L.marker(points[2]);
+            marker.bindPopup("交差点");
+            marker.addTo(map);
+
+            // 表示する地点を線で結ぶ
+            var polyline = L.polyline(points, {color:"blue"});
+            polyline.addTo(map);
+        }
+    </script>
+</head>
+<body>
+    <div id="h_map" style='width: 800px; height: 600px; border: solid 2px #808080;'>
+</div>
+</body>
+</html>
