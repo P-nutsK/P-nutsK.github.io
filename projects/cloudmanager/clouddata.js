@@ -76,7 +76,7 @@ window.addEventListener("message", (request) => {
 function createElements() {
 	// タイトル
 	const h1 = createElement("h1");
-	h1.append("☁ CloudMonitor");
+	h1.append("☁ CloudManager");
 	// 親画面のタイトル
 	const Pname = createElement("a", {
 		id: "Pname",
@@ -93,7 +93,7 @@ function createElements() {
 	handshake.append("handshake");
 	// log出力切り替え
 	const switchlog = createElement("button", "switchlog");
-	switchlog.append("Devtoolログ出力を切り替える");
+	switchlog.append("ログ出力");
 	// 改行
 	const br2 = createElement("br");
 	// 変更ターゲット
