@@ -1,0 +1,38 @@
+table {
+    width: 100%;
+    border-collapse:  collapse;
+}
+table, td, th {
+    border: 2px #00fcef solid;
+    overflow-wrap: anywhere;
+}
+th,td {
+    border: solid 1px;
+    border: solid 1px;
+    padding: 2px;
+}
+table, tr, td { background-color:transparent;}
+/*
+.title {
+    background-color: #00ff15;
+}
+ 
+.data {
+    background-color: #00fafa3d;
+}
+
+thead{
+    background-color: #ff0037;
+}
+*/
+body{
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #252525;
+    color:#ffffff
+}
+
+button{
+    color:#00fff2;
+    background: transparent;
+    border-color: #000000;
+}
