@@ -10,22 +10,69 @@
 </head>
 
 <body>
-    <h1 class="title">P_nutsKのページ</h1>
-    <h2 class="subtitle">もしかして:html初心者</h2>
-
-    <body>
-        <section class="section">
+    <section class="hero">
+        <div class="hero-body">
             <div class="container">
-                <div class="heading">
-                    <h1 class="title">私について</h1>
-                    <h2 class="subtitle">
-                        サブタイトル
-                    </h2>
-                    <p class="">aああああ</p>
-                </div>
+                <h1 class="title">
+                    P_nutsKのページ
+                </h1>
+                <h2 class="subtitle">
+                    もしかして:html苦手
+                </h2>
+                <p>Scratchで色々やってる人です。
+                    <br>
+                    このかっこいいページは9割bulmaのおかげです。右が空きまくっていると思いますが、私もそう思います。
+                    <br>
+                    Scratch:<a href="https://scratch.mit.edu/users/p_nuts">@p_nuts</a>
+                </p>
             </div>
-        </section>
-    </body>
+        </div>
+    </section>
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Status
+                </h1>
+                <h2 class="subtitle">
+                    Scratch Status
+                </h2>
+                <p>
+                    <!--最終のログイン(DBを使っているので割と無能):<span id="lastlogin">取得中...</span><br>-->
+                    フォロワー数:<span id="follower">取得中...</span>
+                    フォーラムでのposts数:<span id="posts">取得中...</span><br>
+                    HTML:察してくれた通り苦手 Node.js:わからん 
+                    JS:微妙 chrome extensions開発:割と得意
+                </p>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Bulma</strong> by <a href="http://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+                    <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+                    is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC ANS 4.0</a>.
+                </p>
+                <p>
+                    <a class="icon" href="https://github.com/jgthms/bulma">
+                        <i class="fa fa-github"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        (async () => {
+            'use strict';
+            const data = await (await fetch("https://scratchdb.lefty.one/v3/user/info/p_nuts")).json();
+            console.log(data);
+            document.querySelector("#follower").innerHTML = data.statistics.followers + "人";
+            const forumdata = await (await fetch("https://scratchdb.lefty.one/v3/forum/user/info/p_nuts")).json();
+            document.querySelector("#posts").innerHTML = forumdata.counts.total.count + "posts";
+        })();
+    </script>
 </body>
 
 </html>
