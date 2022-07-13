@@ -36,8 +36,6 @@ window.addEventListener("message", (request) => {
 	const message = request.data;
 	console.log(request);
 	if (message.type === "handshake") {
-		// なんか起きた時用
-		if (socket.OPEN) {
 			socket.send(`${JSON.stringify({
 				method: "handshake",
 				project_id: projectId,
@@ -45,9 +43,6 @@ window.addEventListener("message", (request) => {
 			})}\n`);
 			console.log("handshake");
 			window.thatWindow.document.querySelector("#send").removeAttribute("disabled");
-		} else {
-			throw TypeError("socket is Not Opened");
-		}
 	}
 	if (message.type === "send") {
 		socket.send(`${JSON.stringify({
@@ -108,7 +103,10 @@ function createElements() {
 		placeholder: "±256桁までの数"
 	});
 	// 送信
-	const send = createElement("button", "send");
+	const send = createElement("button", {
+		id:"send",
+		disabled:"disabled"
+	});
 	send.append("send");
 	/*
 	// ログエリア
