@@ -66,11 +66,16 @@
     <script>
         (async () => {
             'use strict';
-            const data = await (await fetch("https://scratchdb.lefty.one/v3/user/info/p_nuts")).json();
+            try {
+                const data = await (await fetch("https://scratchdb.lefty.one/v3/user/info/p_nuts")).json();
             console.log(data);
             document.querySelector("#follower").innerHTML = data.statistics.followers + "人";
             const forumdata = await (await fetch("https://scratchdb.lefty.one/v3/forum/user/info/p_nuts")).json();
             document.querySelector("#posts").innerHTML = forumdata.counts.total.count + "posts";
+            }catch(e) {
+                document.querySelector("#follower").innerHTML = "取得に失敗しました...";
+                document.querySelector("#posts").innerHTML    = "取得に失敗しました...";
+            }
         })();
     </script>
 </body>
