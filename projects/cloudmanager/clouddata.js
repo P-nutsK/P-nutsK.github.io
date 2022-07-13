@@ -28,7 +28,7 @@ window.thatWindow.document.head.append(createElement("link", { // 関数型言�
 	rel: "stylesheet"
 }));
 // その他
-window.thatWindow.document.body.append(createElements());
+window.thatWindow.document.body.append(...createElements());
 
 // popupからメッセージが来たら
 window.addEventListener("message", (request) => {
@@ -138,7 +138,7 @@ function createElements() {
 	table.append(thead, tbody);
 	// script
 	const script = createElement("script", { src: "https://p-nutsk.github.io/projects/cloudmanager/popup.js" });
-	return { h1, projectTitle, br1, handshake, switchlog, br2, terget, valueinput, send, table, script };
+	return [ h1, projectTitle, br1, handshake, switchlog, br2, terget, valueinput, send, table, script ];
 }
 
 function cloudgetJSON(event) {
