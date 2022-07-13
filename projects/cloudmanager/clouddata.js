@@ -1,41 +1,47 @@
 const socket = new WebSocket("wss://clouddata.scratch.mit.edu/");
-// クラウドメッセージを全てログ
+// WSからのメッセージを全てログ
 console.enablelog = true;
 socket.onmessage = function (event) {
 	if (console.enablelog) {
 		console.log(cloudgetJSON(event));
 	}
+	// WSからメッセージが来たらparseして送る
 	window.thatWindow.postMessage(cloudgetJSON(event));
 };
-
+// 一応ソケットもログ
 console.log(socket);
 
-setTimeout(() => {
-	window.username = document.querySelector("#navigation > div > ul > li.link.right.account-nav > div > a > span").textContent;
-	window.projectId = location.pathname.replace(/[^0-9]/g, '');
+// 使うやつ
+const username = window.Scratch.LoginNav.model.attributes.username;
+const projectId = location.pathname.replace(/[^0-9]/g, '');
 
-}, 1000);
-
-
+// ポップアップ作成
 window.thatWindow = window.open(
 	"",
 	"_blank",
 	"menubar=0,width=675,height=300,top=100,left=100"
 );
+
 // htmlを形成
-const { h1, Pname, br1, handshake, switchlog, br2, terget, valueinput, send, table, script, csslink } = createElements();
-window.thatWindow.document.head.append(csslink);
-window.thatWindow.document.body.append(h1, Pname, br1, handshake, switchlog, br2, terget, valueinput, send, table, script);
+window.thatWindow.document.head.append(createElement("link", { // 関数型言語みたいになってて草
+	href: "https://p-nutsk.github.io/projects/cloudmanager/popup.css",
+	rel: "stylesheet"
+}));
+// その他
+window.thatWindow.document.body.append(createElements());
+
 // popupからメッセージが来たら
 window.addEventListener("message", (request) => {
+	// 抽出
 	const message = request.data;
 	console.log(request);
 	if (message.type === "handshake") {
+		// なんか起きた時用
 		if (socket.OPEN) {
 			socket.send(`${JSON.stringify({
 				method: "handshake",
-				project_id: window.projectId,
-				user: window.username
+				project_id: projectId,
+				user: username
 			})}\n`);
 			console.log("handshake");
 			window.thatWindow.document.querySelector("#send").removeAttribute("disabled");
@@ -46,15 +52,16 @@ window.addEventListener("message", (request) => {
 	if (message.type === "send") {
 		socket.send(`${JSON.stringify({
 			method: "set",
-			project_id: window.projectId,
-			user: window.username,
+			project_id: projectId,
+			user: username,
 			name: message.terget,
 			value: message.value
 		})}\n`);
+		// 自分が変更した趣旨を送る
 		window.thatWindow.postMessage({
 			method: "set",
-			project_id: window.projectId,
-			user: window.username,
+			project_id: projectId,
+			user: username,
 			name: message.terget,
 			value: message.value
 		});
@@ -78,15 +85,11 @@ function createElements() {
 	const h1 = createElement("h1");
 	h1.append("☁ CloudManager");
 	// 親画面のタイトル
-	const Pname = createElement("a", {
-		id: "Pname",
-		href: location.href,
-		terget: "_parent"
-	});
-	setTimeout(() => {
-		const projectName = document.querySelector("#view > div > div.inner > div.flex-row.preview-row.force-row > div.flex-row.project-header > div > div").textContent;
-		Pname.append(projectName);
-	}, 1000);
+	const projectTitle = createElement("span", "projectTitle");
+	fetch(`https://api.scratch.mit.edu/projects/${projectId}`)
+		.then(res => res.json())
+		.then(json => json.title)
+		.then(title => projectTitle.append(title)); // async使うのめんどくなった
 	const br1 = createElement("br");
 	// handshakeボタン
 	const handshake = createElement("button", "handshake");
@@ -133,14 +136,9 @@ function createElements() {
 	thead.append(tr);
 	const tbody = createElement("tbody", "cloudtable");
 	table.append(thead, tbody);
-	// Script
+	// script
 	const script = createElement("script", { src: "https://p-nutsk.github.io/projects/cloudmanager/popup.js" });
-	// CSSlink
-	const csslink = createElement("link", {
-		href: "https://p-nutsk.github.io/projects/cloudmanager/popup.css",
-		rel: "stylesheet"
-	});
-	return { h1, Pname, br1, handshake, switchlog, br2, terget, valueinput, send, table, script, csslink };
+	return { h1, projectTitle, br1, handshake, switchlog, br2, terget, valueinput, send, table, script };
 }
 
 function cloudgetJSON(event) {
@@ -151,7 +149,7 @@ function cloudgetJSON(event) {
 	return data;
 }
 function createElement(name, data) {
-	console.log("name:",name,"data",data);
+	console.log("name:", name, "data", data);
 	const elm = document.createElement(name);
 	if (data != undefined) {
 		if (typeof data === 'string') {
