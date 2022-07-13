@@ -58,13 +58,13 @@ window.addEventListener("message", (request) => {
 			value: message.value
 		})}\n`);
 		// 自分が変更した趣旨を送る
-		window.thatWindow.postMessage({
+		window.thatWindow.postMessage([{
 			method: "set",
 			project_id: projectId,
 			user: username,
 			name: message.terget,
 			value: message.value
-		});
+		}]);
 		console.log("ws Send");
 	}
 	if (message.type === "system_switchlog") {
