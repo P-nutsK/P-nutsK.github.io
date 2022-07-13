@@ -12,7 +12,7 @@ socket.onmessage = function (event) {
 console.log(socket);
 
 // 使うやつ
-const username = window.Scratch.LoginNav.model.attributes.username;
+const username = document.querySelector("#navigation > div > ul > li.link.right.account-nav > div > a > span").textContent;
 const projectId = location.pathname.replace(/[^0-9]/g, '');
 
 // ポップアップ作成
