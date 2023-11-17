@@ -7,9 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="P_nutsKのページ
     もしかして:html苦手
-    Scratchで色々やってた人です。ツイ廃
-    このかっこいいページは9割bulmaのおかげです。右が空きまくっていると思いますが…s">
+    Scratchで色々やってた人です。ツイ廃 ほぼ移転済み
+    このかっこいいページは9割bulmaのおかげです。">
     <title>P_nutsKのページ</title>
+    <meta property="og:url" content="p-nutsk.github.io" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="P-nutsKのページ" />
+    <meta property="og:site_name" content="P-nutsKのページ" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css" />
 </head>
 
@@ -55,33 +59,44 @@
     </section>
     <section class="hero">
         <div class="hero-body">
-          <div class="container">
-            <h1 class="title">
-              相互
-            </h1>
-            <h2 class="subtitle">
-                かさ増しと言ってはいけない
-            </h2>
-            <a href="https://harusamemelon.github.io/" target="_blank">harusamemelon.github.io</a> めろにゃ/はるさめ
-            <br>
-            <a href="https://nakasyou.github.io/" target="_blank">nakasyou.github.io</a> nakasyou
-          </div>
+            <div class="container">
+                <h1 class="title">
+                    相互
+                </h1>
+                <h2 class="subtitle">
+                    かさ増しと言ってはいけない
+                </h2>
+                <a href="https://harusamemelon.github.io/" target="_blank">harusamemelon.github.io</a> めろにゃ/はるさめ
+                <br>
+                <a href="https://nakasyou.github.io/" target="_blank">nakasyou.github.io</a> nakasyou
+            </div>
         </div>
-      </section>
-    <section class="hero">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-            広告
-          </h1>
-          <h2 class="subtitle">
-            特に収益に繋がるわけではない
-          </h2>
-          <iframe src="https://scratcher-advertising.glitch.me/frame/frame-version.html" allowtransparency="true" width="300" height="250" style="border: 1px solid #ccc;" scrolling="no" allowfullscreen loading=lazy title="scratcher-advertising"></iframe><iframe src="https://scratcher-advertising.glitch.me/frame/frame-version.html" allowtransparency="true" width="300" height="250" style="border: 1px solid #ccc;" scrolling="no" allowfullscreen loading=lazy title="scratcher-advertising"></iframe><iframe src="https://scratcher-advertising.glitch.me/frame/frame-version.html" allowtransparency="true" width="300" height="250" style="border: 1px solid #ccc;" scrolling="no" allowfullscreen loading=lazy title="scratcher-advertising"></iframe><iframe src="https://scratcher-advertising.glitch.me/frame/frame-version.html" allowtransparency="true" width="300" height="250" style="border: 1px solid #ccc;" scrolling="no" allowfullscreen loading=lazy title="scratcher-advertising"></iframe>
-        </div>
-      </div>
     </section>
-    
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    広告
+                </h1>
+                <h2 class="subtitle">
+                    特に収益に繋がるわけではない
+                </h2>
+                <iframe src="https://scratcher-advertising.glitch.me/frame/frame-version.html" allowtransparency="true"
+                    width="300" height="250" style="border: 1px solid #ccc;" scrolling="no" allowfullscreen loading=lazy
+                    title="scratcher-advertising"></iframe><iframe
+                    src="https://scratcher-advertising.glitch.me/frame/frame-version.html" allowtransparency="true"
+                    width="300" height="250" style="border: 1px solid #ccc;" scrolling="no" allowfullscreen loading=lazy
+                    title="scratcher-advertising"></iframe><iframe
+                    src="https://scratcher-advertising.glitch.me/frame/frame-version.html" allowtransparency="true"
+                    width="300" height="250" style="border: 1px solid #ccc;" scrolling="no" allowfullscreen loading=lazy
+                    title="scratcher-advertising"></iframe><iframe
+                    src="https://scratcher-advertising.glitch.me/frame/frame-version.html" allowtransparency="true"
+                    width="300" height="250" style="border: 1px solid #ccc;" scrolling="no" allowfullscreen loading=lazy
+                    title="scratcher-advertising"></iframe>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
         <div class="container">
             <div class="content has-text-centered">
@@ -98,13 +113,13 @@
             'use strict';
             try {
                 const data = await (await fetch("https://scratchdb.lefty.one/v3/user/info/p_nuts")).json();
-            console.log(data);
-            document.querySelector("#follower").innerHTML = data.statistics.followers + "人";
-            const forumdata = await (await fetch("https://scratchdb.lefty.one/v3/forum/user/info/p_nuts")).json();
-            document.querySelector("#posts").innerHTML = forumdata.counts.total.count + "posts";
-            }catch(e) {
+                console.log(data);
+                document.querySelector("#follower").innerHTML = data.statistics.followers + "人";
+                const forumdata = await (await fetch("https://scratchdb.lefty.one/v3/forum/user/info/p_nuts")).json();
+                document.querySelector("#posts").innerHTML = forumdata.counts.total.count + "posts";
+            } catch (e) {
                 document.querySelector("#follower").innerHTML = "取得に失敗しました...";
-                document.querySelector("#posts").innerHTML    = "取得に失敗しました...";
+                document.querySelector("#posts").innerHTML = "取得に失敗しました...";
             }
         })();
     </script>
